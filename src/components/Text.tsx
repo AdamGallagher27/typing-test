@@ -1,11 +1,14 @@
 import { useState } from 'react'
 
+interface Props {
+	setWords: React.Dispatch<React.SetStateAction<any>>,
+	gameOver: boolean
+};
 
+export const Text = (props: Props) => {
 
-export const Text = () => {
-
-	const [typed, setTyped] = useState('')
 	const copy = 'blah blah blah blah'
+	const [typed, setTyped] = useState('')
 
 	// returns the current letter
 	const currentLetter = (text: string): string => {
@@ -24,17 +27,30 @@ export const Text = () => {
 		}
 	}
 
+	// when the timer runs out and game over becomes true
+	// send typed words to parent component
+	const getSentence = (text: string) => {
+		if (props.gameOver) {
+			props.setWords(text)
+		}
+	}
+
 	return (
 		<>
 			<div>{copy}</div>
-			<div>{typed}</div>
-			<input type="text" onChange={(e) => {
-				const current = currentLetter(e.target.value)
-				const position = e.target.value.length - 1
-				setTyped(e.target.value)
-				compLetters(current, copy[position])
-
-			}} />
+			{
+				// if game is not over show input
+				!props.gameOver ?
+					<input type="text" onChange={(e) => {
+						const current = currentLetter(e.target.value)
+						const position = e.target.value.length - 1
+						setTyped(e.target.value)
+						compLetters(current, copy[position])
+					}} /> 
+				
+				// else send sentence to 
+				: getSentence(typed)
+			}
 		</>
 	)
 }
