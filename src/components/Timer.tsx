@@ -9,7 +9,7 @@ interface Props {
 export const Timer = (props: Props) => {
 
 	// start time and state variable for the timer
-	const startTime = 5
+	const startTime = 60
 	const [time, setTime] = useState(startTime)
 
 	// reset the timer to the start variable
