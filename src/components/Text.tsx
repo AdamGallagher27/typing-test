@@ -3,11 +3,12 @@ import { useState } from 'react'
 interface Props {
 	setWords: React.Dispatch<React.SetStateAction<any>>,
 	gameOver: boolean
+	copy: string
 };
 
 export const Text = (props: Props) => {
 
-	const copy = 'blah blah blah blah'
+	const copy = props.copy
 	const [typed, setTyped] = useState('')
 
 	// returns the current letter
