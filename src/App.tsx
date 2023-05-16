@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Timer } from "./components/Timer";
-import { Text } from "./components/Text";
+import { useState, useEffect } from "react"
+import { Timer } from "./components/Timer"
+import { Text } from "./components/Text"
+import { Result } from "./components/Result";
+
 
 function App() {
-    const [words, setWords] = useState(null)
+    const [words, setWords] = useState('')
     const [gameOver, setGameOver] = useState(false)
     const [copy, setCopy] = useState('')
     const PARAGRAPHS = 2
     const API_KEY = process.env.REACT_APP_API_KEY
+
 
     // load lorem ipsum from api
     useEffect(() => {
@@ -22,19 +25,27 @@ function App() {
                 headers: HEADERS
             }
         )
-        .then(response => response.json())
-        .then(json => setCopy(json.text))
-        .catch(error => console.log(error))
+            .then(response => response.json())
+            .then(json => setCopy(json.text))
+            .catch(error => console.log(error))
     }, [])
 
-    return (
 
-        <div>
-            <p>Game Over : {gameOver ? "true" : "false"} </p>
-            <p>{words}</p>
-            <Text setWords={setWords} gameOver={gameOver} copy={copy} />
-            <Timer setGameOver={setGameOver} />
-        </div>
+    return (
+        <>
+            {/* if words is not empty (ie...game over) */}
+            {/* show results component */}
+            {words !== '' ? (
+                <Result words={words} copy={copy} />
+            )
+                // else show text / timer component
+                :
+                <div>
+                    <p>{words}</p>
+                    <Text setWords={setWords} gameOver={gameOver} copy={copy} />
+                    <Timer setGameOver={setGameOver} />
+                </div >}
+        </>
     );
 }
 
