@@ -1,0 +1,13 @@
+
+
+.right {
+    color: blue !important;
+}
+
+.wrong {
+    color: red !important;
+}
+
+.reset {
+    color: rgb(0, 0, 0);
+}
